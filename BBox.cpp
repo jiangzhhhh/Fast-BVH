@@ -46,9 +46,12 @@ float BBox::surfaceArea() const {
 #define rotatelps(ps)		_mm_shuffle_ps((ps),(ps), 0x39)	// a,b,c,d -> b,c,d,a
 #define muxhps(low,high)	_mm_movehl_ps((low),(high))	// low{a,b,c,d}|high{e,f,g,h} = {c,d,g,h}
 static const float flt_plus_inf = -logf(0);	// let's keep C and C++ compilers happy.
-static const float __attribute__((aligned(16)))
+#pragma pack(push)
+#pragma pack(16)
+static const float
   ps_cst_plus_inf[4] = {  flt_plus_inf,  flt_plus_inf,  flt_plus_inf,  flt_plus_inf },
   ps_cst_minus_inf[4] = { -flt_plus_inf, -flt_plus_inf, -flt_plus_inf, -flt_plus_inf };
+#pragma pack(pop)
 bool BBox::intersect(const Ray& ray, float *tnear, float *tfar) const {
 
   // you may already have those values hanging around somewhere

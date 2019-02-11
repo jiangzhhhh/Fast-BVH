@@ -10,10 +10,13 @@
 // SSE Vector object
 struct Vector3 {
   // This is silly, but it still helps.
-  union __attribute__((aligned(16))) {
+#pragma pack(push)
+#pragma pack(16)
+  union{
     struct { float x,y,z,w; };
     __m128 m128;
   };
+#pragma pack(pop)
 
   Vector3() { }
   Vector3(float x, float y, float z, float w=0.f) : m128(_mm_set_ps(w,z,y,x)) { }

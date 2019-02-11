@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <vector>
 #include <cstdlib>
+#include <algorithm>
 #include "BVH.h"
 #include "Sphere.h"
 using std::vector;
@@ -45,8 +46,8 @@ int main(int argc, char **argv) {
   printf("Rendering image (%dx%d)...\n", width, height);
   // Raytrace over every pixel
 #pragma omp parallel for
-  for(size_t i=0; i<width; ++i) {
-    for(size_t j=0; j<height; ++j) {
+  for(int i=0; i<width; ++i) {
+    for(int j=0; j<height; ++j) {
       size_t index = 3*(width * j + i);
 
       float u = (i+.5f) / (float)(width-1) - .5f;

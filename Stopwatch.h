@@ -1,16 +1,15 @@
 #ifndef Stopwatch_h
 #define Stopwatch_h
 
-#include <sys/time.h>
+#include <ctime>
 
 class Stopwatch {
   private:
     double start;
     double _stopwatch() const
     {
-      struct timeval time;
-      gettimeofday(&time, 0 );
-      return 1.0 * time.tv_sec + time.tv_usec / (double)1e6;
+      clock_t time = clock();
+      return time * .001;
     }
   public:
     Stopwatch() { reset(); }
